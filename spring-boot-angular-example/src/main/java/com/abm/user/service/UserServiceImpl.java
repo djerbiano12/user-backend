@@ -1,9 +1,12 @@
-package com.mydevgeek;
+package com.abm.user.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.abm.user.repository.UserRepository;
+import com.abm.user.repository.entity.User;
 
 @Service
 public class UserServiceImpl implements UserService {

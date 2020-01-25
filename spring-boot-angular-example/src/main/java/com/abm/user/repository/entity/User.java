@@ -1,4 +1,4 @@
-package com.mydevgeek;
+package com.abm.user.repository.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

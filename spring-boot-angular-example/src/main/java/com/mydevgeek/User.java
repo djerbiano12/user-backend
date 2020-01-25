@@ -1,7 +1,17 @@
 package com.mydevgeek;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "utilisateur")
 public class User {
 
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String firstName;
 	private String lastName;
@@ -32,7 +42,4 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	   
-	   
-
 	}

@@ -43,6 +43,7 @@ public class UserController {
 		modifiedUser.setFirstName(user.getFirstName());
 		modifiedUser.setLastName(user.getLastName());
 		modifiedUser.setEmail(user.getEmail());
+		modifiedUser.setPassword(user.getPassword());
 		return userService.update(modifiedUser);
 	}
 
@@ -55,5 +56,10 @@ public class UserController {
 		} else  {
 			return false;
 		}
+	}
+	
+	@RequestMapping(value = "/{email}/auth/{password}", method = RequestMethod.GET)
+	public Boolean canConnect(@PathVariable String email, @PathVariable String password){
+		return userService.canUserConnect(email, password);
 	}
 }

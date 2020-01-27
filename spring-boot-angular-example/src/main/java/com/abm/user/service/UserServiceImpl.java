@@ -42,4 +42,13 @@ public class UserServiceImpl implements UserService {
     public User update(User user) {
         return repository.save(user);
     }
+
+	@Override
+	public Boolean canUserConnect(String email, String password) {
+		User user = repository.getUserByEmail(email);
+		if(user == null || user.getPassword().compareTo(password) != 0){
+			return false;
+		}
+		return true;
+	}
 }

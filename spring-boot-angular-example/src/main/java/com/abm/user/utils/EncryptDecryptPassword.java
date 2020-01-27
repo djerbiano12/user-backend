@@ -10,6 +10,8 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
+//System.out.println("Encrypt = " + EncryptDecryptPassword.encrypt("Password to encrypt", SECRET_KEY), SECRET_KEY);
+//System.out.println("Decrypt = " + EncryptDecryptPassword.decrypt(EncryptDecryptPassword.encrypt("Password to decrypt, SECRET_KEY), SECRET_KEY));
 public class EncryptDecryptPassword {
 	private final static String secretKey = "secretKey13411618";
 	private final static String salt = "salt23348105";

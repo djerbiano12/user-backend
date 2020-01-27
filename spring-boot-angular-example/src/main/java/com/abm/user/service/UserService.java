@@ -10,4 +10,5 @@ public interface UserService {
 	public List<?> findAll();
 	public User findById(Long id);
 	public User update(User user);
+	public Boolean canUserConnect(String email, String password);
 }

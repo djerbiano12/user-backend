@@ -58,8 +58,8 @@ public class UserController {
 		}
 	}
 	
-	@RequestMapping(value = "/{email}/auth/{password}", method = RequestMethod.GET)
-	public Boolean canConnect(@PathVariable String email, @PathVariable String password){
+	@RequestMapping(value = "/auth", method = RequestMethod.GET)
+	public Boolean canConnect(@RequestParam String email, @RequestParam String password){
 		return userService.canUserConnect(email, password);
 	}
 }

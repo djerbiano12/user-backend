@@ -1,6 +1,7 @@
 package com.abm.user.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +17,8 @@ import java.util.List;
 public class UserController {
 
 	private List<User> users = new ArrayList<User>();
+    public static final String ROLE_ADMIN = "ROLE_ADMIN";
+    public static final String ROLE_USER = "ROLE_USER";
 	
 	@Autowired
 	private BCryptPasswordEncoder encoder;
@@ -36,12 +39,14 @@ public class UserController {
 		return userService.findById(id);
 	}
 
+	@Secured({ROLE_ADMIN})
 	@RequestMapping(method = RequestMethod.POST)
 	public User saveUser(@RequestBody User user) {
 		user.setPassword(encoder.encode(user.getPassword()));
 		return userService.create(user);
 	}
 
+	@Secured({ROLE_ADMIN})
 	@RequestMapping(method = RequestMethod.PUT)
 	public User updateUser(@RequestBody User user) {
 		User modifiedUser = this.getUser(user.getId());
@@ -52,6 +57,7 @@ public class UserController {
 		return userService.update(modifiedUser);
 	}
 
+	@Secured({ROLE_ADMIN})
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public boolean deleteUser(@PathVariable Long id) {
 		User deleteUser = userService.delete(id);
@@ -61,10 +67,5 @@ public class UserController {
 		} else  {
 			return false;
 		}
-	}
-	
-	@RequestMapping(value = "/auth", method = RequestMethod.GET)
-	public Boolean canConnect(@RequestParam String email, @RequestParam String password){
-		return userService.canUserConnect(email, password);
 	}
 }

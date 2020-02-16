@@ -1,9 +1,15 @@
 package com.abm.user.repository.entity;
 
+import java.util.Set;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -17,6 +23,11 @@ public class User {
 	private String lastName;
 	private String email;
 	private String password;
+	
+	@ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "User_ROLES",
+            joinColumns =  @JoinColumn(name ="USER_ID"),inverseJoinColumns= @JoinColumn(name="ROLE_ID"))
+    private Set<Role> roles;
 	   
 	//getters and setters
 	public Long getId() {
@@ -48,5 +59,11 @@ public class User {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public Set<Role> getRoles() {
+		return roles;
+	}
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
 	}
 	}

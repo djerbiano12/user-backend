@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User delete(Long id) {
-        User user = findById(id);
+        User user = this.findById(id);
         if(user != null){
             repository.delete(user);
         }
@@ -44,11 +44,8 @@ public class UserServiceImpl implements UserService {
     }
 
 	@Override
-	public Boolean canUserConnect(String email, String password) {
-		User user = repository.getUserByEmail(email);
-		if(user == null || user.getPassword().compareTo(password) != 0){
-			return false;
-		}
-		return true;
+	public User getUserByEmail(String email) {
+		return repository.getUserByEmail(email);
 	}
+
 }

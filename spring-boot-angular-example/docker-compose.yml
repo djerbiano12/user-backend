@@ -4,7 +4,7 @@ services:
     image: user_rest_service
     container_name: user_rest_service_container
     ports:
-      - "8080:8080"
+      - "8090:8090"
     networks:
       - user-service-network
     depends_on:

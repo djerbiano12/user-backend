@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.*;
 import com.abm.user.dto.UserDto;
 import com.abm.user.dto.UserDtoMapper;
 import com.abm.user.repository.entity.User;
+import com.abm.user.service.RoleService;
 import com.abm.user.service.UserService;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +30,9 @@ public class UserController {
 	
 	 @Autowired
 	private UserService userService;
+	 
+	 @Autowired
+	private RoleService roleService;
 	 
 	@Autowired
 	private ModelMapper modelMapper;
@@ -52,19 +57,21 @@ public class UserController {
 
 	@Secured({ROLE_ADMIN})
 	@RequestMapping(method = RequestMethod.POST)
-	public UserDto saveUser(@RequestBody User user) {
+	public UserDto saveUser(@RequestBody UserDto user) throws ParseException {
 		user.setPassword(encoder.encode(user.getPassword()));
-		return UserDtoMapper.convertToDto(userService.create(user), modelMapper);
+		user.getRoles().add(roleService.getRoleByName(user.getRole()));
+		return UserDtoMapper.convertToDto(userService.create(UserDtoMapper.convertToEntity(user, modelMapper)), modelMapper);
 	}
 
 	@Secured({ROLE_ADMIN})
 	@RequestMapping(method = RequestMethod.PUT)
-	public UserDto updateUser(@RequestBody User user) {
+	public UserDto updateUser(@RequestBody UserDto user) {
 		User modifiedUser = userService.findById(user.getId());
 		modifiedUser.setFirstName(user.getFirstName());
 		modifiedUser.setLastName(user.getLastName());
 		modifiedUser.setEmail(user.getEmail());
 		modifiedUser.setPassword(encoder.encode(user.getPassword()));
+		modifiedUser.getRoles().add(roleService.getRoleByName(user.getRole()));
 		return UserDtoMapper.convertToDto(userService.update(modifiedUser), modelMapper);
 	}
 

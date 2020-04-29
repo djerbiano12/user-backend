@@ -11,6 +11,7 @@ public class UserDto {
 	private String email;
 	private String password;
     private Set<Role> roles;
+    private String role;
 	
 	public Long getId() {
 		return id;
@@ -47,5 +48,11 @@ public class UserDto {
 	}
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
+	}
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
 	}
 }

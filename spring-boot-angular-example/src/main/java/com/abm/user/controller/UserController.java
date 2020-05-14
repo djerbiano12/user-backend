@@ -80,6 +80,7 @@ public class UserController {
 		modifiedUser.setFirstName(user.getFirstName());
 		modifiedUser.setLastName(user.getLastName());
 		modifiedUser.setEmail(user.getEmail());
+		modifiedUser.setPhoneNumber(user.getPhoneNumber());
 		modifiedUser.setPassword(encoder.encode(user.getPassword()));
 		modifiedUser.getRoles().add(roleService.getRoleByName(user.getRole()));
 		return UserDtoMapper.convertToDto(userService.update(modifiedUser), modelMapper);

@@ -11,6 +11,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "utilisateur")
@@ -23,6 +24,8 @@ public class User {
 	private String lastName;
 	private String email;
 	private String password;
+	@Pattern(regexp="(^$|[0-9]{10})")
+	private String phoneNumber;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "User_ROLES",
@@ -65,5 +68,11 @@ public class User {
 	}
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
+	}
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 	}

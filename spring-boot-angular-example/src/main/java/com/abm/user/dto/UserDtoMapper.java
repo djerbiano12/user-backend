@@ -9,8 +9,11 @@ import com.abm.user.repository.entity.User;
 public class UserDtoMapper {
 	
 	public static UserDto convertToDto(User user, ModelMapper modelMapper) {
-	    UserDto userDto = modelMapper.map(user, UserDto.class);
-	    return userDto;
+		if(user != null){
+		    UserDto userDto = modelMapper.map(user, UserDto.class);
+		    return userDto;
+		}
+	    return null;
 	}
 	
 	public static User convertToEntity(UserDto userDto, ModelMapper modelMapper) throws ParseException {

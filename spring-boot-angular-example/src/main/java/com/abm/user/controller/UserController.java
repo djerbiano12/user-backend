@@ -67,6 +67,9 @@ public class UserController {
 	@RequestMapping(method = RequestMethod.POST)
 	public UserDto saveUser(@RequestBody UserDto user) throws ParseException {
 		Set<Role> roles = new HashSet<Role>();	
+		if(this.getUserByEmail(user.getEmail()) != null){
+			throw new RuntimeException("Duplicate email.");
+		}
 		user.setPassword(encoder.encode(user.getPassword()));
 		roles.add(roleService.getRoleByName(user.getRole()));
 		user.setRoles(roles);

@@ -2,13 +2,14 @@ package com.abm.user.repository.entity;
 
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
@@ -26,6 +27,8 @@ public class User {
 	private String password;
 	@Pattern(regexp="(^$|[0-9]{10})")
 	private String phoneNumber;
+	@Column(columnDefinition = "boolean default false")
+    private Boolean locked;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "User_ROLES",
@@ -74,5 +77,11 @@ public class User {
 	}
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+	public Boolean getLocked() {
+		return locked;
+	}
+	public void setLocked(Boolean locked) {
+		this.locked = locked;
 	}
 	}

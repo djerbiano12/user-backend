@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<?> findAll() {
-        return repository.findAll();
+        return repository.getUserByLocked(false);
     }
 
     @Override

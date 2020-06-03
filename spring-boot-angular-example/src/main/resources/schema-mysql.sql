@@ -14,15 +14,16 @@
 --  PRIMARY KEY (id)
 -- ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
--- CREATE TABLE IF NOT EXISTS utilisateur (
+-- CREATE TABLE utilisateur (
 -- id int(11) NOT NULL AUTO_INCREMENT,
 -- email varchar(255) DEFAULT NULL,
 -- first_name varchar(255) DEFAULT NULL,
 -- last_name varchar(255) DEFAULT NULL,
 -- password varchar(255) CHARACTER SET utf8 NOT NULL,
 -- phone_number varchar(50) NOT NULL,
+-- locked tinyint(1) NOT NULL,
 -- PRIMARY KEY (id)
---) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4
+--) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4
 
 
 -- delete from user_roles;

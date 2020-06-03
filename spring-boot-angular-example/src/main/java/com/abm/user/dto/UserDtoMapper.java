@@ -18,6 +18,7 @@ public class UserDtoMapper {
 	
 	public static User convertToEntity(UserDto userDto, ModelMapper modelMapper) throws ParseException {
 	    User user = modelMapper.map(userDto, User.class);
+	    user.setLocked(false);
 	    return user;
 	}
 }

@@ -1,4 +1,4 @@
-package com.abm.user.config;
+package com.abm.user.config.security;
 
 import javax.annotation.Resource;
 

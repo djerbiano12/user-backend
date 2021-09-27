@@ -1,5 +1,6 @@
 package com.abm.user.controller;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -12,17 +13,23 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.abm.user.dto.UserDto;
 import com.abm.user.dto.UserDtoMapper;
 import com.abm.user.repository.entity.Role;
 import com.abm.user.repository.entity.User;
+import com.abm.user.repository.entity.UserPicture;
 import com.abm.user.service.RoleService;
+import com.abm.user.service.UserPictureService;
 import com.abm.user.service.UserService;
+import com.abm.user.utils.CompressByteFile;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -36,9 +43,12 @@ public class UserController {
 	@Autowired
 	private BCryptPasswordEncoder encoder;
 	
-	 @Autowired
+	@Autowired
 	private UserService userService;
 	 
+	@Autowired
+	private UserPictureService userPictureService;
+	
 	 @Autowired
 	private RoleService roleService;
 	 
@@ -74,6 +84,24 @@ public class UserController {
 		roles.add(roleService.getRoleByName(user.getRole()));
 		user.setRoles(roles);
 		return UserDtoMapper.convertToDto(userService.create(UserDtoMapper.convertToEntity(user, modelMapper)), modelMapper);
+	}
+	
+	@PostMapping("/upload")
+	public UserPicture uplaodImage(@RequestParam("imageFile") MultipartFile file) throws IOException {
+		String email = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("#") + 1);
+		String fileName = file.getOriginalFilename().substring(0, file.getOriginalFilename().lastIndexOf("#"));
+		User modifiedUser = userService.getUserByEmail(email);
+		UserPicture oldUserPicture = userPictureService.getUserPictureByUser(modifiedUser);
+		UserPicture picture = new UserPicture();
+		if(oldUserPicture != null){
+			picture.setId(oldUserPicture.getId());
+		}
+		picture.setName(fileName);
+		picture.setType(file.getContentType());
+		picture.setPicByte(CompressByteFile.compressBytes(file.getBytes()));
+		picture.setUtilisateur(modifiedUser);
+		
+		return userPictureService.update(picture);
 	}
 
 	@Secured({ROLE_ADMIN})

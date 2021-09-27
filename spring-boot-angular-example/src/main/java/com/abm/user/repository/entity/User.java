@@ -29,6 +29,7 @@ public class User {
 	private String phoneNumber;
 	@Column(columnDefinition = "boolean default false")
     private Boolean locked;
+	@Column(name = "picByte", length = 1000)
 	
 	@ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "User_ROLES",

@@ -13,6 +13,7 @@ public class UserDto {
 	private String phoneNumber;
     private Set<Role> roles;
     private String role;
+    private byte[] file;
 	
 	public Long getId() {
 		return id;
@@ -61,5 +62,11 @@ public class UserDto {
 	}
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+	public byte[] getFile() {
+		return file;
+	}
+	public void setFile(byte[] file) {
+		this.file = file;
 	}
 }

@@ -26,9 +26,8 @@
 --) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4
 
 
--- delete from user_roles;
--- delete from user_roles;
--- delete from utilisateur;
+-- delete from user_roles where user_id <> 1;
+-- delete from utilisateur where id <> 1;
 -- commit;
 
 -- INSERT INTO utilisateur (id, email, first_name, last_name, password, phone_number) VALUES

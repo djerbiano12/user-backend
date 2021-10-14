@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -102,6 +103,14 @@ public class UserController {
 		picture.setUtilisateur(modifiedUser);
 		
 		return userPictureService.update(picture);
+	}
+	
+	@GetMapping(path = { "/get/{email}" })
+	public UserPicture getImage(@PathVariable("email") String email) throws IOException {
+		User user = userService.getUserByEmail(email);
+		UserPicture userPicture = userPictureService.getUserPictureByUser(user);
+		userPicture.setPicByte(CompressByteFile.decompressBytes(userPicture.getPicByte()));
+		return userPicture;
 	}
 
 	@Secured({ROLE_ADMIN})

@@ -109,7 +109,9 @@ public class UserController {
 	public UserPicture getImage(@PathVariable("email") String email) throws IOException {
 		User user = userService.getUserByEmail(email);
 		UserPicture userPicture = userPictureService.getUserPictureByUser(user);
-		userPicture.setPicByte(CompressByteFile.decompressBytes(userPicture.getPicByte()));
+		if(userPicture != null){
+			userPicture.setPicByte(CompressByteFile.decompressBytes(userPicture.getPicByte()));
+		}
 		return userPicture;
 	}
 
